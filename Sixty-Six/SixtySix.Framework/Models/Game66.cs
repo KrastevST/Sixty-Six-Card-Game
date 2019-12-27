@@ -28,6 +28,7 @@ namespace SixtySix.Framework.Models
             this.deck = deckProvider.CreateDeck();
             Closed.Status = false;
             gameOver = false;
+            ChangeFirstPlayer(player1);
         }
 
         public Pair Closed { get; set; }
@@ -45,7 +46,6 @@ namespace SixtySix.Framework.Models
             DealCards(3, 2);
             openTrump = deck.Dequeue();
             trumpSuit = openTrump.Suit;
-            ChangeFirstPlayer(player1);
 
             while (gameOver == false)
             {
@@ -60,6 +60,7 @@ namespace SixtySix.Framework.Models
             var roundWinner = ResolveRound();
             ScoreRound(roundWinner);
             ResetRound();
+            ChangeFirstPlayer(roundWinner);
         }
         private void DealCards(int number)
         {
@@ -95,24 +96,11 @@ namespace SixtySix.Framework.Models
         }
         private void ChangeFirstPlayer(IPlayer player)
         {
-            if (player == player1)
-            {
-                player1.IsFirst = true;
-                player2.IsFirst = false;
-                firstPlayer = player1;
-                secondPlayer = player2;
-            }
-            else if (player == player2)
-            {
-                player1.IsFirst = false;
-                player2.IsFirst = true;
-                firstPlayer = player2;
-                secondPlayer = player1;
-            }
-            else
-            {
-                throw new ArgumentException("Valid player must be entered");
-            }
+            Guard.WhenArgument(player, "player").IsNull().Throw();
+            player.IsFirst = true;
+            Not(player).IsFirst = false;
+            firstPlayer = player;
+            secondPlayer = Not(player);
         }
         private IPlayer Not(IPlayer player)
         {
@@ -147,7 +135,7 @@ namespace SixtySix.Framework.Models
             {
                 roundWinner = player1.RoundPoints > player2.RoundPoints ? player1 : player2;
             }
-            else if (Closed.Initiator != null && 
+            else if (Closed.Initiator != null &&
                 Closed.Initiator.RoundPoints >= 66)
             {
                 roundWinner = Closed.Initiator;
