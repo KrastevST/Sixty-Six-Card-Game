@@ -22,7 +22,7 @@ namespace SixtySix.UI
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
     }
 }

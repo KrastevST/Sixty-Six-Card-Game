@@ -1,9 +1,10 @@
 ﻿using Bytes2you.Validation;
+using SixtySix.Crontracts;
 using System;
 
 namespace SixtySix.Framework.Models
 {
-    public class Card : IComparable
+    public class Card : ICard, IComparable
     {
         public Card(string symbol, string suit, int value)
         {

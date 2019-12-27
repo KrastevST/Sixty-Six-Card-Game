@@ -45,11 +45,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Pair.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Game66.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\DeckProvider66.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SixtySix.Crontracts\SixtySix.Crontracts.csproj">
+      <Project>{A19A1D9E-C4E0-43E4-B781-11428C1FDEAA}</Project>
+      <Name>SixtySix.Crontracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
