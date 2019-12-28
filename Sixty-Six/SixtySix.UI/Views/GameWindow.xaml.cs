@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SixtySix.UI
+namespace SixtySix.UI.Views
 {
     /// <summary>
     /// Interaction logic for PlayWindow.xaml
     /// </summary>
-    public partial class PlayWindow : Window
+    public partial class GameWindow : Window
     {
-        public PlayWindow()
+        public GameWindow()
         {
             InitializeComponent();
         }

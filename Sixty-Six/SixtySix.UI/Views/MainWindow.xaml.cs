@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SixtySix.UI
+namespace SixtySix.UI.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
