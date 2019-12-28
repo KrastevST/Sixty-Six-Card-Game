@@ -1,0 +1,114 @@
+﻿<Window x:Class="SixtySix.UI.PlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SixtySix.UI"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" FontSize="16" FontFamily="Segoe UI"
+        Title="PlayWindow" Height="600" Width="600">
+    <Window.Resources>
+        <Style TargetType="Button">
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button" x:Key="CardBtn">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+
+        <!-- Row 3 -->
+        <Button x:Name="openTrump" Grid.Row="3" Grid.Column="0" Width="80" Height="60"
+                Margin="40, 0, 30, 0" Grid.ColumnSpan="2" Click="openTrump_Click">
+            <StackPanel>
+                <TextBlock x:Name="openTrumpSymbol"/>
+                <TextBlock x:Name="openTrumpSuit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="talon" Grid.Row="3" Grid.Column="0" Style="{StaticResource CardBtn}"
+                Click="talon_Click">
+                <TextBlock x:Name="talonText"/>
+        </Button>
+        <Button x:Name="trickCard1" Grid.Row="3" Grid.Column="3" Style="{StaticResource CardBtn}"
+                Click="trickCard1_Click">
+            <StackPanel>
+                <TextBlock x:Name="trickCard1Symbol"/>
+                <TextBlock x:Name="trickCard1Suit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="trickCard2" Grid.Row="3" Grid.Column="4" Style="{StaticResource CardBtn}"
+                Click="trickCard2_Click">
+            <StackPanel>
+                <TextBlock x:Name="trickCard2Symbol"/>
+                <TextBlock x:Name="trickCard2Suit"/>
+            </StackPanel>
+        </Button>
+
+        <!-- Row 5 -->
+        <Button x:Name="card1" Grid.Row="5" Grid.Column="1" Style="{StaticResource CardBtn}"
+                Click="card1_Click">
+            <StackPanel>
+                <TextBlock x:Name="card1Symbol"/>
+                <TextBlock x:Name="card1Suit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="card2" Grid.Row="5" Grid.Column="2" Style="{StaticResource CardBtn}"
+                Click="card2_Click">
+            <StackPanel>
+                <TextBlock x:Name="card2Symbol"/>
+                <TextBlock x:Name="card2Suit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="card3" Grid.Row="5" Grid.Column="3" Style="{StaticResource CardBtn}"
+                Click="card3_Click">
+            <StackPanel>
+                <TextBlock x:Name="card3Symbol"/>
+                <TextBlock x:Name="card3Suit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="card4" Grid.Row="5" Grid.Column="4" Style="{StaticResource CardBtn}"
+                Click="card4_Click">
+            <StackPanel>
+                <TextBlock x:Name="card4Symbol"/>
+                <TextBlock x:Name="card4Suit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="card5" Grid.Row="5" Grid.Column="5" Style="{StaticResource CardBtn}"
+                Click="card5_Click">
+            <StackPanel>
+                <TextBlock x:Name="card5Symbol"/>
+                <TextBlock x:Name="card5Suit"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="card6" Grid.Row="5" Grid.Column="6" Style="{StaticResource CardBtn}"
+                Click="card6_Click">
+            <StackPanel>
+                <TextBlock x:Name="card6Symbol"/>
+                <TextBlock x:Name="card6Suit"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

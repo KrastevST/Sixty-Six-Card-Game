@@ -9,28 +9,24 @@ namespace SixtySix.Framework.Models
 {
     public class Player : IPlayer
     {
-        private ICollection<Card> takenCards;
-        private Dictionary<string, int> cardPoints;
-
-        public Player()
-        {
-
-        }
-
-        public Dictionary<string, int> CardPoints => this.cardPoints;
         public bool IsFirst { get; set; }
         public ICollection<ICard> CurrentHand { get; set; }
+        public ICollection<ICard> DiscardPile { get; set; }
         public int RoundPoints { get; set; }
         public int GamePoints { get; set; }
 
         public ICard PlayCard()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public void TakeTrick(IDictionary<IPlayer, ICard> currentRound)
+        public void TakeTrick(IDictionary<IPlayer, ICard> currentTrick)
         {
-            throw new NotImplementedException();
+            foreach (var kvp in currentTrick)
+            {
+                DiscardPile.Add(kvp.Value);
+                RoundPoints += kvp.Value.Value;
+            }
         }
     }
 }

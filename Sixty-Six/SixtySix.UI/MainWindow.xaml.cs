@@ -24,5 +24,15 @@ namespace SixtySix.UI
         {
             InitializeComponent();           
         }
+
+        private void startBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void quitBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

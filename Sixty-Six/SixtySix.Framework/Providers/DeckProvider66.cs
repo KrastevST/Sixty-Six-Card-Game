@@ -9,5 +9,10 @@ namespace SixtySix.Framework.Providers
         {
             throw new System.NotImplementedException();
         }
+
+        public Queue<ICard> RebuildDeck(IPlayer player1, IPlayer player2)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

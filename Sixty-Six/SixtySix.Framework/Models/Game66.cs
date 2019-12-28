@@ -10,7 +10,7 @@ namespace SixtySix.Framework.Models
         private Queue<ICard> deck;
         private IPlayer player1;
         private IPlayer player2;
-        private ICard openTrump;
+        private ICard openedTrump;
         private string trumpSuit;
         private bool gameOver;
         private IPlayer firstPlayer;
@@ -44,8 +44,8 @@ namespace SixtySix.Framework.Models
         private void StartRound()
         {
             DealCards(3, 2);
-            openTrump = deck.Dequeue();
-            trumpSuit = openTrump.Suit;
+            openedTrump = deck.Dequeue();
+            trumpSuit = openedTrump.Suit;
 
             while (gameOver == false)
             {
@@ -76,8 +76,8 @@ namespace SixtySix.Framework.Models
 
             if (deck.Count == 0)
             {
-                secondPlayer.CurrentHand.Add(openTrump);
-                openTrump = null;
+                secondPlayer.CurrentHand.Add(openedTrump);
+                openedTrump = null;
                 Closed.Status = true;
                 return;
             }
