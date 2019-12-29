@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using SixtySix.Container;
 using SixtySix.Container.Modules;
 using SixtySix.UI.Views;
 using System.Windows;
@@ -12,14 +13,10 @@ namespace SixtySix.UI
     {
         public void App_Startup(object sender, StartupEventArgs e)
         {
-            var builder = new ContainerBuilder();
-
-            builder.RegisterModule<BasicModule>();
-
-            var container = builder.Build();
+            ServiceLocator.Build();
 
             var mainWindow = new MainWindow();
-            mainWindow.Show();
+            MainWindow.Show();
         }
     }
 }

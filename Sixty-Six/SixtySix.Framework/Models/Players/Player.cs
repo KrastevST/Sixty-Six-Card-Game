@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SixtySix.Framework.Models
+namespace SixtySix.Framework.Models.Players
 {
     public class Player : IPlayer
     {

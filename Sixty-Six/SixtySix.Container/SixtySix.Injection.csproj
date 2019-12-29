@@ -44,9 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacBootstrapper.cs" />
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Modules\BasicModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -61,5 +61,6 @@
       <Name>SixtySix.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

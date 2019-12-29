@@ -45,9 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Players\ComputerPlayer.cs" />
     <Compile Include="Models\Pair.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Players\Player.cs" />
     <Compile Include="Models\Game66.cs" />
+    <Compile Include="Models\Players\UserPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\DeckProvider66.cs" />
   </ItemGroup>

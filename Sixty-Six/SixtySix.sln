@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Crontracts", "Sixt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Framework.UnitTests", "SixtySix.Framework.UnitTests\SixtySix.Framework.UnitTests.csproj", "{16FAF61C-9B95-4AF1-89D9-0F269BF35560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Bootstrapping", "SixtySix.Container\SixtySix.Bootstrapping.csproj", "{430DD66F-297E-48FF-A9C5-EF8014EBF0D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Injection", "SixtySix.Container\SixtySix.Injection.csproj", "{430DD66F-297E-48FF-A9C5-EF8014EBF0D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

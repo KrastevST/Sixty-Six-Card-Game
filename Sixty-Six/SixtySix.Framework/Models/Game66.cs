@@ -35,18 +35,13 @@ namespace SixtySix.Framework.Models
 
         public void Start()
         {
-            while (player1.GamePoints < 11 && player2.GamePoints < 11)
-            {
-                StartRound();
-            }
+            DealCards(3, 2);
+            openedTrump = deck.Dequeue();
+            trumpSuit = openedTrump.Suit;
         }
 
         private void StartRound()
         {
-            DealCards(3, 2);
-            openedTrump = deck.Dequeue();
-            trumpSuit = openedTrump.Suit;
-
             while (gameOver == false)
             {
                 currentTrick[firstPlayer] = firstPlayer.PlayCard();

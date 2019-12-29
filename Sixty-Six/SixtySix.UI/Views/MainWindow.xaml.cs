@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SixtySix.Container;
+using SixtySix.Crontracts;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SixtySix.UI.Views
 {
@@ -27,12 +17,15 @@ namespace SixtySix.UI.Views
 
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            var gw = new GameWindow();
+            gw.Show();
+            this.Close();
+            ServiceLocator.Resolve<IGame>().Start();
         }
 
         private void quitBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Environment.Exit(0);
         }
     }
 }
