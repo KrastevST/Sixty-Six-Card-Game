@@ -4,7 +4,7 @@ namespace SixtySix.Crontracts
 {
     public interface ICard : IComparable
     {
-        string Symbol { get; }
+        string Rank { get; }
         string Suit { get; }
         int Value { get; }
     }

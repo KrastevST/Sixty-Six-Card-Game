@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using SixtySix.Container.Modules;
 
-namespace SixtySix.Container
+namespace SixtySix.Injection
 {
     public static class ServiceLocator
     {

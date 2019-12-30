@@ -1,6 +1,4 @@
-﻿using Autofac;
-using SixtySix.Container;
-using SixtySix.Container.Modules;
+﻿using SixtySix.Injection;
 using SixtySix.UI.Views;
 using System.Windows;
 

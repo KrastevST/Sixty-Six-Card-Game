@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SixtySix.Container;
+using SixtySix.Crontracts;
+using SixtySix.Injection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SixtySix.UI.Views
 {
@@ -26,32 +17,32 @@ namespace SixtySix.UI.Views
 
         private void card1_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayCard(1);
         }
 
         private void card2_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayCard(2);
         }
 
         private void card3_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayCard(3);
         }
 
         private void card4_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayCard(4);
         }
 
         private void card5_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayCard(5);
         }
 
         private void card6_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayCard(6);
         }
 
         private void openTrump_Click(object sender, RoutedEventArgs e)
@@ -72,6 +63,15 @@ namespace SixtySix.UI.Views
         private void talon_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void PlayCard(int index)
+        {
+            var game = ServiceLocator.Resolve<IGame>();
+            var player = game.UserPlayer;
+            var card = player.PlayCard(index);
+            game.CurrentTrick[player] = card;
+            game.CheckCurrentTrick();
         }
     }
 }

@@ -2,8 +2,12 @@
 
 namespace SixtySix.Framework.Models.Players
 {
-    public class ComputerPlayer : Player, IPlayer
+    public class ComputerPlayer : Player, IComputerPlayer
     {
+        public ComputerPlayer(int handSize)
+            : base(handSize)
+        {
 
+        }
     }
 }
