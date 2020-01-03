@@ -2,9 +2,9 @@
 
 namespace SixtySix.Framework.Models
 {
-    public class Pair
+    public class Pair<T, U>
     {
-        public IPlayer Initiator { get; set; }
-        public bool Status { get; set; }
+        public T First { get; set; }
+        public U Second { get; set; }
     }
 }

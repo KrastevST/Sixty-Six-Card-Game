@@ -18,7 +18,5 @@ namespace SixtySix.Injection
         {
             return container.Resolve<T>();
         }
-
-        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SixtySix.Crontracts;
+using SixtySix.Framework.Models;
 
-namespace SixtySix.Framework.Models.Factories
+namespace SixtySix.Framework.Factories
 {
     public class CardFactory : ICardFactory
     {

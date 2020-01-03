@@ -1,14 +1,14 @@
 ﻿using Bytes2you.Validation;
 using SixtySix.Crontracts;
+using SixtySix.Framework.Models;
 using System;
 using System.Collections.Generic;
 
-namespace SixtySix.Framework.Models
+namespace SixtySix.Framework
 {
     public class Game66 : IGame
     {
         private Queue<ICard> deck;
-        private ICard openedTrump;
         private string trumpSuit;
         private IPlayer firstPlayer;
         private IPlayer secondPlayer;
@@ -23,34 +23,34 @@ namespace SixtySix.Framework.Models
             this.UserPlayer = userPlayer;
             this.ComputerPlayer = computerPlayer;
             this.deckProvider = deckProvider;
-            this.deck = deckProvider.GenerateDeck();
-            Closed.Status = false;
-            ChangeFirstPlayer(RandomPlayer());
+            this.Deck = deckProvider.GenerateDeck();
+            Closed = new Pair<IPlayer, bool>();
+            CurrentTrick = new Dictionary<IPlayer, ICard>();
+            ChangeFirstPlayer(ComputerPlayer);
+            //ChangeFirstPlayer(RandomPlayer());
         }
 
-        public Pair Closed { get; set; }
+        public Pair<IPlayer, bool> Closed { get; set; }
         public IDictionary<IPlayer, ICard> CurrentTrick { get; set; }
         public IUserPlayer UserPlayer { get; }
         public IComputerPlayer ComputerPlayer { get; }
+        public ICard OpenedTrump { get; set; }
+        public Queue<ICard> Deck { get => deck; set => deck = value; }
 
         public void Start()
         {
             DealCards(3, 2);
-            openedTrump = deck.Dequeue();
-            trumpSuit = openedTrump.Suit;
-            computerPlayIf(ComputerPlayer == firstPlayer);
+            OpenedTrump = Deck.Dequeue();
+            trumpSuit = OpenedTrump.Suit;
+            computerPlaysIf(ComputerPlayer == firstPlayer);
         }
 
-        public void CheckCurrentTrick()
+        public bool CheckCurrentTrick()
         {
-            if (CurrentTrick.Count < 2)
-            {
-                ComputerPlayer.PlayCard();
-            }
-
+            computerPlaysIf(CurrentTrick.Count < 2);
             var trickWinner = ResolveTrick();
             trickWinner.TakeTrick(CurrentTrick);
-            CurrentTrick = null;
+            CurrentTrick.Clear();
             ChangeFirstPlayer(trickWinner);
 
             if (RoundOver())
@@ -60,7 +60,7 @@ namespace SixtySix.Framework.Models
 
                 if (GameWinner() != null)
                 {
-                    EndGame();
+                    return true;
                 }
 
                 ResetRound();
@@ -68,32 +68,33 @@ namespace SixtySix.Framework.Models
             }
 
             DealCards(1);
-            computerPlayIf(ComputerPlayer == firstPlayer);
+            computerPlaysIf(ComputerPlayer == firstPlayer);
+            return false;
         }
 
         private void DealCards(int number)
         {
-            if (deck.Count == 0)
+            if (Deck.Count == 0)
             {
                 return;
             }
 
             for (int i = 0; i < number; i++)
             {
-                firstPlayer.CurrentHand.Add(deck.Dequeue());
+                firstPlayer.CurrentHand.Add(Deck.Dequeue());
             }
 
-            if (deck.Count == 0)
+            if (Deck.Count == 0)
             {
-                secondPlayer.CurrentHand.Add(openedTrump);
-                openedTrump = null;
-                Closed.Status = true;
+                secondPlayer.CurrentHand.Add(OpenedTrump);
+                OpenedTrump = null;
+                Closed.Second = true;
                 return;
             }
 
             for (int i = 0; i < number; i++)
             {
-                ComputerPlayer.CurrentHand.Add(deck.Dequeue());
+                ComputerPlayer.CurrentHand.Add(Deck.Dequeue());
             }
         }
         private void DealCards(int number, int times)
@@ -111,12 +112,11 @@ namespace SixtySix.Framework.Models
             firstPlayer = player;
             secondPlayer = Not(player);
         }
-        private void computerPlayIf(bool cond)
+        private void computerPlaysIf(bool cond)
         {
             if (cond)
             {
-                var card = ComputerPlayer.PlayCard();
-                CurrentTrick[ComputerPlayer] = card;
+                CurrentTrick[ComputerPlayer] = ComputerPlayer.PlayCard();
             }
         }
         private IPlayer Not(IPlayer player)
@@ -127,8 +127,8 @@ namespace SixtySix.Framework.Models
         private IPlayer RandomPlayer()
         {
             var rand = new Random();
-            return rand.Next() % 2 == 0 
-                ? (IPlayer)UserPlayer 
+            return rand.Next() % 2 == 0
+                ? (IPlayer)UserPlayer
                 : ComputerPlayer;
         }
         private IPlayer ResolveTrick()
@@ -155,18 +155,18 @@ namespace SixtySix.Framework.Models
             firstPlayer.RoundPoints += 10;
             IPlayer roundWinner;
 
-            if (Closed.Initiator == null)
+            if (Closed.First == null)
             {
                 roundWinner = UserPlayer.RoundPoints > ComputerPlayer.RoundPoints ? (IPlayer)UserPlayer : ComputerPlayer;
             }
-            else if (Closed.Initiator != null &&
-                Closed.Initiator.RoundPoints >= 66)
+            else if (Closed.First != null &&
+                Closed.First.RoundPoints >= 66)
             {
-                roundWinner = Closed.Initiator;
+                roundWinner = Closed.First;
             }
             else
             {
-                roundWinner = Not(Closed.Initiator);
+                roundWinner = Not(Closed.First);
             }
 
             return roundWinner;
@@ -184,7 +184,7 @@ namespace SixtySix.Framework.Models
             }
 
             return null;
-        } 
+        }
         private bool RoundOver()
         {
             bool result = false;
@@ -202,9 +202,9 @@ namespace SixtySix.Framework.Models
         }
         private void ScoreRound(IPlayer roundWinner)
         {
-            if (Closed.Initiator != null)
+            if (Closed.First != null)
             {
-                if (roundWinner == Closed.Initiator &&
+                if (roundWinner == Closed.First &&
                     Not(roundWinner).RoundPoints >= 33)
                 {
                     roundWinner.GamePoints += 2;
@@ -233,13 +233,12 @@ namespace SixtySix.Framework.Models
         {
             UserPlayer.RoundPoints = 0;
             ComputerPlayer.RoundPoints = 0;
-            Closed = null;
+            Closed.First = null;
+            Closed.Second = false;
             trumpSuit = null;
-            deck = deckProvider.ReshuffleDeck(UserPlayer, ComputerPlayer);
-        }
-        private void EndGame()
-        {
-            //TODO: Implement
+            Deck = deckProvider.ReshuffleDeck(UserPlayer.DiscardPile, ComputerPlayer.DiscardPile);
+            UserPlayer.DiscardPile.Clear();
+            ComputerPlayer.DiscardPile.Clear();
         }
     }
 }

@@ -45,9 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICard.cs" />
+    <Compile Include="ICardFactory.cs" />
     <Compile Include="IComputerPlayer.cs" />
     <Compile Include="IDeckProvider.cs" />
     <Compile Include="IGame.cs" />
+    <Compile Include="IGameInfo.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IUserPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

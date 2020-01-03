@@ -15,6 +15,16 @@
             <Setter Property="Height" Value="80"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <Style TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -41,11 +51,11 @@
 
 
         <!-- Row 3 -->
-        <Button x:Name="openTrump" Grid.Row="3" Grid.Column="0" Width="80" Height="60"
-                Margin="40, 0, 30, 0" Grid.ColumnSpan="2" Click="openTrump_Click">
+        <Button x:Name="openedTrump" Grid.Row="3" Grid.Column="0" Width="80" Height="60"
+                Margin="65, 0, 5, 0" Grid.ColumnSpan="2" Click="openTrump_Click">
             <StackPanel>
-                <TextBlock x:Name="openTrumpSymbol"/>
-                <TextBlock x:Name="openTrumpSuit"/>
+                <TextBlock x:Name="openedTrumpRank" TextAlignment="Center"/>
+                <TextBlock x:Name="openedTrumpSuit" TextAlignment="Right"/>
             </StackPanel>
         </Button>
         <Button x:Name="talon" Grid.Row="3" Grid.Column="0" Style="{StaticResource CardBtn}"
@@ -55,14 +65,14 @@
         <Button x:Name="trickCard1" Grid.Row="3" Grid.Column="3" Style="{StaticResource CardBtn}"
                 Click="trickCard1_Click">
             <StackPanel>
-                <TextBlock x:Name="trickCard1Symbol"/>
+                <TextBlock x:Name="trickCard1Rank"/>
                 <TextBlock x:Name="trickCard1Suit"/>
             </StackPanel>
         </Button>
         <Button x:Name="trickCard2" Grid.Row="3" Grid.Column="4" Style="{StaticResource CardBtn}"
                 Click="trickCard2_Click">
             <StackPanel>
-                <TextBlock x:Name="trickCard2Symbol"/>
+                <TextBlock x:Name="trickCard2Rank"/>
                 <TextBlock x:Name="trickCard2Suit"/>
             </StackPanel>
         </Button>
@@ -71,42 +81,42 @@
         <Button x:Name="card1" Grid.Row="5" Grid.Column="1" Style="{StaticResource CardBtn}"
                 Click="card1_Click">
             <StackPanel>
-                <TextBlock x:Name="card1Symbol"/>
-                <TextBlock x:Name="card1Suit"/>
+                <TextBlock x:Name="card1Rank" Text="{Binding Path=Card1Rank}"/>
+                <TextBlock x:Name="card1Suit" Text="{Binding Path=Card1Suit}"/>
             </StackPanel>
         </Button>
         <Button x:Name="card2" Grid.Row="5" Grid.Column="2" Style="{StaticResource CardBtn}"
                 Click="card2_Click">
             <StackPanel>
-                <TextBlock x:Name="card2Symbol"/>
+                <TextBlock x:Name="card2Rank"/>
                 <TextBlock x:Name="card2Suit"/>
             </StackPanel>
         </Button>
         <Button x:Name="card3" Grid.Row="5" Grid.Column="3" Style="{StaticResource CardBtn}"
                 Click="card3_Click">
             <StackPanel>
-                <TextBlock x:Name="card3Symbol"/>
+                <TextBlock x:Name="card3Rank"/>
                 <TextBlock x:Name="card3Suit"/>
             </StackPanel>
         </Button>
         <Button x:Name="card4" Grid.Row="5" Grid.Column="4" Style="{StaticResource CardBtn}"
                 Click="card4_Click">
             <StackPanel>
-                <TextBlock x:Name="card4Symbol"/>
+                <TextBlock x:Name="card4Rank"/>
                 <TextBlock x:Name="card4Suit"/>
             </StackPanel>
         </Button>
         <Button x:Name="card5" Grid.Row="5" Grid.Column="5" Style="{StaticResource CardBtn}"
                 Click="card5_Click">
             <StackPanel>
-                <TextBlock x:Name="card5Symbol"/>
+                <TextBlock x:Name="card5Rank"/>
                 <TextBlock x:Name="card5Suit"/>
             </StackPanel>
         </Button>
         <Button x:Name="card6" Grid.Row="5" Grid.Column="6" Style="{StaticResource CardBtn}"
                 Click="card6_Click">
             <StackPanel>
-                <TextBlock x:Name="card6Symbol"/>
+                <TextBlock x:Name="card6Rank"/>
                 <TextBlock x:Name="card6Suit"/>
             </StackPanel>
         </Button>

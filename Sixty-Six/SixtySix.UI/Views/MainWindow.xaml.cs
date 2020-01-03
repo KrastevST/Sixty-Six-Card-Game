@@ -17,10 +17,10 @@ namespace SixtySix.UI.Views
 
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
-            var gw = new GameWindow();
-            gw.Show();
-            this.Close();
             ServiceLocator.Resolve<IGame>().Start();
+            var gameWindow = new GameWindow();
+            gameWindow.Show();
+            this.Close();
         }
 
         private void quitBtn_Click(object sender, RoutedEventArgs e)

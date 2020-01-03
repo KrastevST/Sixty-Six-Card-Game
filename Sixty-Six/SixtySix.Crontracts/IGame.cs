@@ -7,8 +7,10 @@ namespace SixtySix.Crontracts
         IDictionary<IPlayer, ICard> CurrentTrick { get; set; }
         IUserPlayer UserPlayer { get; }
         IComputerPlayer ComputerPlayer { get; }
+        ICard OpenedTrump { get; set; }
+        Queue<ICard> Deck { get; set; }
 
         void Start();
-        void CheckCurrentTrick();
+        bool CheckCurrentTrick();
     }
 }

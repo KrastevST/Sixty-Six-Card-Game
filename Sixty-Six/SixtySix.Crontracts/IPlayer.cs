@@ -10,7 +10,6 @@ namespace SixtySix.Crontracts
         int RoundPoints { get; set; }
         int GamePoints { get; set; }
 
-        ICard PlayCard();
         ICard PlayCard(int index);
 
         void TakeTrick(IDictionary<IPlayer, ICard> currentRound);

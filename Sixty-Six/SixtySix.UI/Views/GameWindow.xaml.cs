@@ -13,36 +13,37 @@ namespace SixtySix.UI.Views
         public GameWindow()
         {
             InitializeComponent();
+            UpdateUI();
         }
 
         private void card1_Click(object sender, RoutedEventArgs e)
         {
-            PlayCard(1);
+            PlayCard(0);
         }
 
         private void card2_Click(object sender, RoutedEventArgs e)
         {
-            PlayCard(2);
+            PlayCard(1);
         }
 
         private void card3_Click(object sender, RoutedEventArgs e)
         {
-            PlayCard(3);
+            PlayCard(2);
         }
 
         private void card4_Click(object sender, RoutedEventArgs e)
         {
-            PlayCard(4);
+            PlayCard(3);
         }
 
         private void card5_Click(object sender, RoutedEventArgs e)
         {
-            PlayCard(5);
+            PlayCard(4);
         }
 
         private void card6_Click(object sender, RoutedEventArgs e)
         {
-            PlayCard(6);
+            PlayCard(5);
         }
 
         private void openTrump_Click(object sender, RoutedEventArgs e)
@@ -68,10 +69,97 @@ namespace SixtySix.UI.Views
         private void PlayCard(int index)
         {
             var game = ServiceLocator.Resolve<IGame>();
-            var player = game.UserPlayer;
-            var card = player.PlayCard(index);
-            game.CurrentTrick[player] = card;
-            game.CheckCurrentTrick();
+            var userPlayer = game.UserPlayer;
+            var card = userPlayer.PlayCard(index);
+
+            game.CurrentTrick[userPlayer] = card;
+            UpdateUI();
+            bool gameOver = game.CheckCurrentTrick();
+        }
+
+        public void UpdateUI()
+        {
+            var game = ServiceLocator.Resolve<IGame>();
+            var playerHand = game.UserPlayer.CurrentHand;
+
+            if (playerHand.Count >= 1)
+            {
+                card1Rank.Text = playerHand[0].Rank.ToUpper();
+                card1Suit.Text = playerHand[0].Suit.ToLower();
+            }
+            else
+            {
+                card1Rank.Text = null;
+                card1Suit.Text = null;
+            }
+
+            if (playerHand.Count >= 2)
+            {
+                card2Rank.Text = playerHand[1].Rank.ToUpper();
+                card2Suit.Text = playerHand[1].Suit.ToLower();
+            }
+            else
+            {
+                card2Rank.Text = null;
+                card2Suit.Text = null;
+            }
+
+            if (playerHand.Count >= 3)
+            {
+                card3Rank.Text = playerHand[2].Rank.ToUpper();
+                card3Suit.Text = playerHand[2].Suit.ToLower();
+            }
+            else
+            {
+                card3Rank.Text = null;
+                card3Suit.Text = null;
+            }
+
+            if (playerHand.Count >= 4)
+            {
+                card4Rank.Text = playerHand[3].Rank.ToUpper();
+                card4Suit.Text = playerHand[3].Suit.ToLower();
+            }
+            else
+            {
+                card4Rank.Text = null;
+                card4Suit.Text = null;
+            }
+
+            if (playerHand.Count >= 5)
+            {
+                card5Rank.Text = playerHand[4].Rank.ToUpper();
+                card5Suit.Text = playerHand[4].Suit.ToLower();
+            }
+            else
+            {
+                card5Rank.Text = null;
+                card5Suit.Text = null;
+            }
+
+            if (playerHand.Count >= 6)
+            {
+                card6Rank.Text = playerHand[5].Rank.ToUpper();
+                card6Suit.Text = playerHand[5].Suit.ToLower();
+            }
+            else
+            {
+                card6Rank.Text = null;
+                card6Suit.Text = null;
+            }
+
+            if (game.OpenedTrump == null)
+            {
+                openedTrumpRank.Text = null;
+                openedTrumpSuit.Text = null;
+            }
+            else
+            {
+                openedTrumpRank.Text = game.OpenedTrump.Rank.ToUpper();
+                openedTrumpSuit.Text = game.OpenedTrump.Suit.ToLower();
+            }
+
+            talonText.Text = game.Deck.Count.ToString();
         }
     }
 }

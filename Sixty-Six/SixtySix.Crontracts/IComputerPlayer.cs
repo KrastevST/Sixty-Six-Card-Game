@@ -2,5 +2,6 @@
 {
     public interface IComputerPlayer : IPlayer
     {
+        ICard PlayCard();
     }
 }

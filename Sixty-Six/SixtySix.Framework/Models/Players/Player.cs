@@ -7,10 +7,10 @@ namespace SixtySix.Framework.Models.Players
 {
     public class Player : IPlayer
     {
-        public Player(int handSize)
+        public Player()
         {
-            Guard.WhenArgument(handSize, "handSize").IsLessThan(1).IsGreaterThan(52).Throw();
-            CurrentHand = new ICard[handSize];
+            CurrentHand = new List<ICard>();
+            DiscardPile = new List<ICard>();
         }
 
         public bool IsFirst { get; set; }
@@ -18,16 +18,12 @@ namespace SixtySix.Framework.Models.Players
         public ICollection<ICard> DiscardPile { get; set; }
         public int RoundPoints { get; set; }
         public int GamePoints { get; set; }
-
-        public ICard PlayCard()
-        {
-            throw new NotImplementedException();
-        }
+        public IGameInfo GameInfo { get; set; }
 
         public ICard PlayCard(int index)
         {
             var card = CurrentHand[index];
-            CurrentHand[index] = null;
+            CurrentHand.Remove(card);
 
             return card;
         }

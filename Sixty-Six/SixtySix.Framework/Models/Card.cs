@@ -4,14 +4,14 @@ using System;
 
 namespace SixtySix.Framework.Models
 {
-    public class Card : ICard, IComparable
+    public class Card : ICard, IComparable, IEquatable<ICard>
     {
-        public Card(string symbol, string suit, int value)
+        public Card(string rank, string suit, int value)
         {
-            Guard.WhenArgument(symbol, "symbol").IsNullOrWhiteSpace().Throw();
+            Guard.WhenArgument(rank, "symbol").IsNullOrWhiteSpace().Throw();
             Guard.WhenArgument(suit, "suit").IsNullOrWhiteSpace().Throw();
             Guard.WhenArgument(value, "value").IsLessThan(0).IsGreaterThan(12).Throw();
-            this.Rank = symbol.ToLower();
+            this.Rank = rank.ToLower();
             this.Suit = suit.ToLower();
             this.Value = value;
         }
@@ -23,8 +23,19 @@ namespace SixtySix.Framework.Models
         public int CompareTo(object obj)
         {
             Card otherCard = obj as Card;
-            Guard.WhenArgument(otherCard, "otherCard").IsNull().Throw();
+            Guard.WhenArgument(obj, "obj").IsNull().Throw();
+
+            if (otherCard == null)
+            {
+                throw new ArgumentException("obj is not a card", "obj");
+            }
+
             return this.Value - otherCard.Value;
+        }
+
+        public bool Equals(ICard other)
+        {
+            return Rank.Equals(other.Rank) && Suit.Equals(other.Suit);
         }
     }
 }

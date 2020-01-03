@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using SixtySix.Framework.Models;
+using System;
+using System.Collections.Generic;
 
 namespace SixtySix.Framework.UnitTests.ModelsTests.CardTests
 {
@@ -33,11 +35,21 @@ namespace SixtySix.Framework.UnitTests.ModelsTests.CardTests
             Assert.IsTrue(card1.CompareTo(card2) == 0);
         }
 
+        [Test]
         public void ThrowArgumentNullException_WhenComparedToNullObject()
         {
             Card card = new Card("9", "clubs", 0);
 
+            Assert.Throws<ArgumentNullException>(() => card.CompareTo(null));
+        }
 
+        [Test]
+        public void ThrowArgumentException_WhenComparedToObjectThatIsNotCard()
+        {
+            Card card = new Card("9", "clubs", 0);
+            List<int> notCard = new List<int>();
+
+            Assert.Throws<ArgumentException>(() => card.CompareTo(notCard));
         }
     }
 }
