@@ -9,9 +9,11 @@ namespace SixtySix.Crontracts
         IComputerPlayer ComputerPlayer { get; }
         ICard OpenedTrump { get; set; }
         Queue<ICard> Deck { get; set; }
+        bool RoundOver { get; }
 
-        void Start();
-        bool CheckCurrentTrick();
+        void StartRound();
+        void ResolveCurrentTrick();
         void computerPlaysIf(bool cond);
+        IPlayer CheckForGameWinner();
     }
 }

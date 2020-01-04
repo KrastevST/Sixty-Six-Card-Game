@@ -23,10 +23,10 @@ namespace SixtySix.Framework.Models.Players
 
         public void TakeTrick(IDictionary<IPlayer, ICard> currentTrick)
         {
-            foreach (var kvp in currentTrick)
+            foreach (var playerCardPair in currentTrick)
             {
-                DiscardPile.Add(kvp.Value);
-                RoundPoints += kvp.Value.Value;
+                DiscardPile.Add(playerCardPair.Value);
+                RoundPoints += playerCardPair.Value.Value;
             }
         }
     }

@@ -198,11 +198,18 @@ namespace SixtySix.UI.Views
 
             if (game.CurrentTrick.Count == 2)
             {
-                bool roundOver = game.CheckCurrentTrick();
-                if (roundOver)
+                game.ResolveCurrentTrick();
+
+                if (game.CheckForGameWinner() != null)
+                {
+                    //TODO end of game
+                }
+
+                if (game.RoundOver)
                 {
                     //TODO end of round
                 }
+
                 UpdateUI();
             }
         }

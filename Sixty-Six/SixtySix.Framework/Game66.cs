@@ -25,8 +25,7 @@ namespace SixtySix.Framework
             this.Deck = deckProvider.GenerateDeck();
             Closed = new Pair<IPlayer, bool>();
             CurrentTrick = new Dictionary<IPlayer, ICard>();
-            ChangeFirstPlayer(UserPlayer); //TODO: Delete this row
-            //ChangeFirstPlayer(RandomPlayer());
+            ChangeFirstPlayer(RandomPlayer());
         }
 
         public Pair<IPlayer, bool> Closed { get; set; }
@@ -35,33 +34,33 @@ namespace SixtySix.Framework
         public IComputerPlayer ComputerPlayer { get; }
         public ICard OpenedTrump { get; set; }
         public Queue<ICard> Deck { get; set; }
+        public bool RoundOver => IsRoundOver();
 
-        public void Start()
+        public void StartRound()
         {
+            ResetRound();
             DealCards(3, 2);
             DrawTrump();
             computerPlaysIf(ComputerPlayer == firstPlayer);
         }
 
-        public bool CheckCurrentTrick()
+        public void ResolveCurrentTrick()
         {
-            var trickWinner = ResolveTrick();
+            var trickWinner = ResolveTrickWinner();
             trickWinner.TakeTrick(CurrentTrick);
             CurrentTrick.Clear();
             ChangeFirstPlayer(trickWinner);
 
-            if (RoundOver())
+            if (RoundOver)
             {
-                var roundWinner = ResolveRound();
+                var roundWinner = ResolveRoundWinner();
                 ScoreRound(roundWinner);
-                ResetRound();
                 ChangeFirstPlayer(roundWinner);
-                return true;
+                return;
             }
 
             DealCards(1);
             computerPlaysIf(ComputerPlayer == firstPlayer);
-            return false;
         }
         public void computerPlaysIf(bool cond)
         {
@@ -72,6 +71,20 @@ namespace SixtySix.Framework
                 ComputerPlayer.GameInfo.cardPlayed = card;
                 UserPlayer.GameInfo.cardPlayed = card;
             }
+        }
+        public IPlayer CheckForGameWinner()
+        {
+            if (ComputerPlayer.GamePoints >= 11)
+            {
+                return ComputerPlayer;
+            }
+
+            if (UserPlayer.GamePoints >= 11)
+            {
+                return UserPlayer;
+            }
+
+            return null;
         }
 
         private void DealCards(int number)
@@ -96,7 +109,7 @@ namespace SixtySix.Framework
 
             for (int i = 0; i < number; i++)
             {
-                ComputerPlayer.CurrentHand.Add(Deck.Dequeue());
+                secondPlayer.CurrentHand.Add(Deck.Dequeue());
             }
         }
         private void DealCards(int number, int times)
@@ -133,7 +146,7 @@ namespace SixtySix.Framework
                 ? (IPlayer)UserPlayer
                 : ComputerPlayer;
         }
-        private IPlayer ResolveTrick()
+        private IPlayer ResolveTrickWinner()
         {
             if (CurrentTrick[firstPlayer].Suit != CurrentTrick[secondPlayer].Suit)
             {
@@ -152,7 +165,7 @@ namespace SixtySix.Framework
                 ? firstPlayer
                 : secondPlayer;
         }
-        private IPlayer ResolveRound()
+        private IPlayer ResolveRoundWinner()
         {
             firstPlayer.RoundPoints += 10;
             IPlayer roundWinner;
@@ -173,21 +186,7 @@ namespace SixtySix.Framework
 
             return roundWinner;
         }
-        private IPlayer GameWinner()
-        {
-            if (ComputerPlayer.GamePoints >= 11)
-            {
-                return ComputerPlayer;
-            }
-
-            if (UserPlayer.GamePoints >= 11)
-            {
-                return UserPlayer;
-            }
-
-            return null;
-        }
-        private bool RoundOver()
+        private bool IsRoundOver()
         {
             bool result = false;
 
@@ -238,7 +237,11 @@ namespace SixtySix.Framework
             Closed.First = null;
             Closed.Second = false;
             trumpSuit = null;
-            Deck = deckProvider.ReshuffleDeck(UserPlayer.DiscardPile, ComputerPlayer.DiscardPile);
+
+            if (UserPlayer.DiscardPile.Count > 0 || ComputerPlayer.DiscardPile.Count > 0)
+            {
+                Deck = deckProvider.ReshuffleDeck(UserPlayer.DiscardPile, ComputerPlayer.DiscardPile);
+            }
             UserPlayer.DiscardPile.Clear();
             ComputerPlayer.DiscardPile.Clear();
         }

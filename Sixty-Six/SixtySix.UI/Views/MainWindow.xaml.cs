@@ -17,7 +17,7 @@ namespace SixtySix.UI.Views
 
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
-            ServiceLocator.Resolve<IGame>().Start();
+            ServiceLocator.Resolve<IGame>().StartRound();
             var gameWindow = new GameWindow();
             gameWindow.Show();
             this.Close();
