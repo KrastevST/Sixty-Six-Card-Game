@@ -8,7 +8,6 @@ namespace SixtySix.Framework
 {
     public class Game66 : IGame
     {
-        private Queue<ICard> deck;
         private string trumpSuit;
         private IPlayer firstPlayer;
         private IPlayer secondPlayer;
@@ -26,7 +25,7 @@ namespace SixtySix.Framework
             this.Deck = deckProvider.GenerateDeck();
             Closed = new Pair<IPlayer, bool>();
             CurrentTrick = new Dictionary<IPlayer, ICard>();
-            ChangeFirstPlayer(ComputerPlayer);
+            ChangeFirstPlayer(UserPlayer); //TODO: Delete this row
             //ChangeFirstPlayer(RandomPlayer());
         }
 
@@ -35,19 +34,17 @@ namespace SixtySix.Framework
         public IUserPlayer UserPlayer { get; }
         public IComputerPlayer ComputerPlayer { get; }
         public ICard OpenedTrump { get; set; }
-        public Queue<ICard> Deck { get => deck; set => deck = value; }
+        public Queue<ICard> Deck { get; set; }
 
         public void Start()
         {
             DealCards(3, 2);
-            OpenedTrump = Deck.Dequeue();
-            trumpSuit = OpenedTrump.Suit;
+            DrawTrump();
             computerPlaysIf(ComputerPlayer == firstPlayer);
         }
 
         public bool CheckCurrentTrick()
         {
-            computerPlaysIf(CurrentTrick.Count < 2);
             var trickWinner = ResolveTrick();
             trickWinner.TakeTrick(CurrentTrick);
             CurrentTrick.Clear();
@@ -57,19 +54,24 @@ namespace SixtySix.Framework
             {
                 var roundWinner = ResolveRound();
                 ScoreRound(roundWinner);
-
-                if (GameWinner() != null)
-                {
-                    return true;
-                }
-
                 ResetRound();
                 ChangeFirstPlayer(roundWinner);
+                return true;
             }
 
             DealCards(1);
             computerPlaysIf(ComputerPlayer == firstPlayer);
             return false;
+        }
+        public void computerPlaysIf(bool cond)
+        {
+            if (cond)
+            {
+                var card = ComputerPlayer.PlayCard();
+                CurrentTrick[ComputerPlayer] = card;
+                ComputerPlayer.GameInfo.cardPlayed = card;
+                UserPlayer.GameInfo.cardPlayed = card;
+            }
         }
 
         private void DealCards(int number)
@@ -104,6 +106,13 @@ namespace SixtySix.Framework
                 DealCards(number);
             }
         }
+        private void DrawTrump()
+        {
+            OpenedTrump = Deck.Dequeue();
+            trumpSuit = OpenedTrump.Suit;
+            UserPlayer.GameInfo.trumpSuit = OpenedTrump.Suit;
+            ComputerPlayer.GameInfo.trumpSuit = OpenedTrump.Suit;
+        }
         private void ChangeFirstPlayer(IPlayer player)
         {
             Guard.WhenArgument(player, "player").IsNull().Throw();
@@ -111,13 +120,6 @@ namespace SixtySix.Framework
             Not(player).IsFirst = false;
             firstPlayer = player;
             secondPlayer = Not(player);
-        }
-        private void computerPlaysIf(bool cond)
-        {
-            if (cond)
-            {
-                CurrentTrick[ComputerPlayer] = ComputerPlayer.PlayCard();
-            }
         }
         private IPlayer Not(IPlayer player)
         {
@@ -135,11 +137,11 @@ namespace SixtySix.Framework
         {
             if (CurrentTrick[firstPlayer].Suit != CurrentTrick[secondPlayer].Suit)
             {
-                foreach (var kvp in CurrentTrick)
+                foreach (var playerCardPair in CurrentTrick)
                 {
-                    if (kvp.Value.Suit == trumpSuit)
+                    if (playerCardPair.Value.Suit == trumpSuit)
                     {
-                        return kvp.Key;
+                        return playerCardPair.Key;
                     }
                 }
 

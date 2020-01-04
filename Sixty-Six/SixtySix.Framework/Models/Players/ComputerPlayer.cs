@@ -8,6 +8,14 @@ namespace SixtySix.Framework.Models.Players
     {
         public ICard PlayCard()
         {
+            var card = ChooseCard();
+            CurrentHand.Remove(card);
+            return card;
+        }
+
+
+        private ICard ChooseCard()
+        {
             if (GameInfo.Closed == true && this.IsFirst == false)
             {
                 var sameSuitCards = CurrentHand.Where(x => x.Suit.ToLower() == GameInfo.cardPlayed.Suit.ToLower());
@@ -47,7 +55,6 @@ namespace SixtySix.Framework.Models.Players
 
             return WeakestCard(CurrentHand);
         }
-
         private ICard WeakestCard(IEnumerable<ICard> set)
         {
             return set.OrderBy(x => x.Value).ToArray()[0];

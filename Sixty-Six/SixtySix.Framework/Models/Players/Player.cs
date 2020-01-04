@@ -11,6 +11,7 @@ namespace SixtySix.Framework.Models.Players
         {
             CurrentHand = new List<ICard>();
             DiscardPile = new List<ICard>();
+            GameInfo = new GameInfo();
         }
 
         public bool IsFirst { get; set; }
@@ -19,14 +20,6 @@ namespace SixtySix.Framework.Models.Players
         public int RoundPoints { get; set; }
         public int GamePoints { get; set; }
         public IGameInfo GameInfo { get; set; }
-
-        public ICard PlayCard(int index)
-        {
-            var card = CurrentHand[index];
-            CurrentHand.Remove(card);
-
-            return card;
-        }
 
         public void TakeTrick(IDictionary<IPlayer, ICard> currentTrick)
         {

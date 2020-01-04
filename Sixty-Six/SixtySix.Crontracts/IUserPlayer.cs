@@ -2,5 +2,6 @@
 {
     public interface IUserPlayer : IPlayer
     {
+        ICard PlayCard(int index);
     }
 }

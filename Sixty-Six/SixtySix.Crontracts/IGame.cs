@@ -12,5 +12,6 @@ namespace SixtySix.Crontracts
 
         void Start();
         bool CheckCurrentTrick();
+        void computerPlaysIf(bool cond);
     }
 }

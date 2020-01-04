@@ -16,6 +16,7 @@
             <Setter Property="Margin" Value="5"/>
         </Style>
         <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
             <Style.Triggers>
                 <Trigger Property="Text" Value="">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -49,6 +50,11 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
+        <!-- RoW 2 -->
+        <Button x:Name="discardPile1" Grid.Row="2" Grid.Column="6" Width="80" Height="60"
+                Grid.ColumnSpan="3"  Click="openTrump_Click">
+            <TextBlock x:Name="discardPile1Text" TextAlignment="Center"/>
+        </Button>
 
         <!-- Row 3 -->
         <Button x:Name="openedTrump" Grid.Row="3" Grid.Column="0" Width="80" Height="60"
@@ -76,7 +82,13 @@
                 <TextBlock x:Name="trickCard2Suit"/>
             </StackPanel>
         </Button>
-
+        
+        <!-- RoW 4 -->
+        <Button x:Name="discardPile2" Grid.Row="4" Grid.Column="6" Width="80" Height="60"
+                Grid.ColumnSpan="3"  Click="openTrump_Click">
+            <TextBlock x:Name="discardPile2Text" TextAlignment="Center"/>
+        </Button>
+        
         <!-- Row 5 -->
         <Button x:Name="card1" Grid.Row="5" Grid.Column="1" Style="{StaticResource CardBtn}"
                 Click="card1_Click">

@@ -53,12 +53,12 @@ namespace SixtySix.UI.Views
 
         private void trickCard1_Click(object sender, RoutedEventArgs e)
         {
-
+            TakeTrick();
         }
 
         private void trickCard2_Click(object sender, RoutedEventArgs e)
         {
-
+            TakeTrick();
         }
 
         private void talon_Click(object sender, RoutedEventArgs e)
@@ -69,12 +69,17 @@ namespace SixtySix.UI.Views
         private void PlayCard(int index)
         {
             var game = ServiceLocator.Resolve<IGame>();
-            var userPlayer = game.UserPlayer;
-            var card = userPlayer.PlayCard(index);
 
-            game.CurrentTrick[userPlayer] = card;
-            UpdateUI();
-            bool gameOver = game.CheckCurrentTrick();
+            if (index < game.UserPlayer.CurrentHand.Count)
+            {
+                var card = game.UserPlayer.PlayCard(index);
+                game.CurrentTrick[game.UserPlayer] = card;
+                game.UserPlayer.GameInfo.cardPlayed = card;
+                game.ComputerPlayer.GameInfo.cardPlayed = card;
+
+                game.computerPlaysIf(!game.CurrentTrick.ContainsKey(game.ComputerPlayer));
+                UpdateUI();
+            }
         }
 
         public void UpdateUI()
@@ -160,6 +165,46 @@ namespace SixtySix.UI.Views
             }
 
             talonText.Text = game.Deck.Count.ToString();
+
+            if (game.CurrentTrick.ContainsKey(game.ComputerPlayer))
+            {
+                trickCard1Rank.Text = game.CurrentTrick[game.ComputerPlayer].Rank.ToUpper();
+                trickCard1Suit.Text = game.CurrentTrick[game.ComputerPlayer].Suit.ToUpper();
+            }
+            else
+            {
+                trickCard1Rank.Text = null;
+                trickCard1Suit.Text = null;
+            }
+
+            if (game.CurrentTrick.ContainsKey(game.UserPlayer))
+            {
+                trickCard2Rank.Text = game.CurrentTrick[game.UserPlayer].Rank.ToUpper();
+                trickCard2Suit.Text = game.CurrentTrick[game.UserPlayer].Suit.ToUpper();
+            }
+            else
+            {
+                trickCard2Rank.Text = null;
+                trickCard2Suit.Text = null;
+            }
+
+            discardPile1Text.Text = game.ComputerPlayer.RoundPoints.ToString();
+            discardPile2Text.Text = game.UserPlayer.RoundPoints.ToString();
+        }
+
+        private void TakeTrick()
+        {
+            var game = ServiceLocator.Resolve<IGame>();
+
+            if (game.CurrentTrick.Count == 2)
+            {
+                bool roundOver = game.CheckCurrentTrick();
+                if (roundOver)
+                {
+                    //TODO end of round
+                }
+                UpdateUI();
+            }
         }
     }
 }

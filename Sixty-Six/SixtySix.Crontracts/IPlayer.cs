@@ -9,8 +9,7 @@ namespace SixtySix.Crontracts
         ICollection<ICard> DiscardPile { get; set; }
         int RoundPoints { get; set; }
         int GamePoints { get; set; }
-
-        ICard PlayCard(int index);
+        IGameInfo GameInfo { get; set; }
 
         void TakeTrick(IDictionary<IPlayer, ICard> currentRound);
     }
