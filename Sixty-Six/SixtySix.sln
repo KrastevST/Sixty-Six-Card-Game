@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.UI", "SixtySix.UI\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Framework", "SixtySix.Framework\SixtySix.Framework.csproj", "{1C23E852-44D6-40F2-A700-DD3D5E2D6B87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Crontracts", "SixtySix.Crontracts\SixtySix.Crontracts.csproj", "{A19A1D9E-C4E0-43E4-B781-11428C1FDEAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Contracts", "SixtySix.Crontracts\SixtySix.Contracts.csproj", "{A19A1D9E-C4E0-43E4-B781-11428C1FDEAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SixtySix.Framework.UnitTests", "SixtySix.Framework.UnitTests\SixtySix.Framework.UnitTests.csproj", "{16FAF61C-9B95-4AF1-89D9-0F269BF35560}"
 EndProject

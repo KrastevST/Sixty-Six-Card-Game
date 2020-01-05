@@ -14,7 +14,8 @@ namespace SixtySix.Crontracts
 
         void StartRound();
         void ResolveCurrentTrick();
-        void computerPlaysIf(bool cond);
+        void ComputerPlaysIf(bool cond);
         IPlayer CheckForGameWinner();
+        void Close(IPlayer player);
     }
 }

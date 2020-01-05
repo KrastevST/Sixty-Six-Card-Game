@@ -53,9 +53,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SixtySix.Crontracts\SixtySix.Crontracts.csproj">
+    <ProjectReference Include="..\SixtySix.Crontracts\SixtySix.Contracts.csproj">
       <Project>{A19A1D9E-C4E0-43E4-B781-11428C1FDEAA}</Project>
-      <Name>SixtySix.Crontracts</Name>
+      <Name>SixtySix.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\SixtySix.Framework\SixtySix.Framework.csproj">
       <Project>{1C23E852-44D6-40F2-A700-DD3D5E2D6B87}</Project>

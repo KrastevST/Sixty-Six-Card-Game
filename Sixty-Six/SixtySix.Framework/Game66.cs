@@ -41,7 +41,7 @@ namespace SixtySix.Framework
             ResetRound();
             DealCards(3, 2);
             DrawTrump();
-            computerPlaysIf(ComputerPlayer == firstPlayer);
+            ComputerPlaysIf(ComputerPlayer == firstPlayer);
         }
 
         public void ResolveCurrentTrick()
@@ -60,9 +60,9 @@ namespace SixtySix.Framework
             }
 
             DealCards(1);
-            computerPlaysIf(ComputerPlayer == firstPlayer);
+            ComputerPlaysIf(ComputerPlayer == firstPlayer);
         }
-        public void computerPlaysIf(bool cond)
+        public void ComputerPlaysIf(bool cond)
         {
             if (cond)
             {
@@ -71,6 +71,13 @@ namespace SixtySix.Framework
                 ComputerPlayer.GameInfo.cardPlayed = card;
                 UserPlayer.GameInfo.cardPlayed = card;
             }
+        }
+        public void Close(IPlayer player)
+        {
+            Closed.First = player;
+            Closed.Second = true;
+            player.GameInfo.Closed = true;
+            Not(player).GameInfo.Closed = true;
         }
         public IPlayer CheckForGameWinner()
         {
@@ -247,9 +254,11 @@ namespace SixtySix.Framework
                 UserPlayer.RoundPoints = 0;
                 UserPlayer.DiscardPile.Clear();
                 UserPlayer.CurrentHand.Clear();
+                UserPlayer.GameInfo = new GameInfo();
                 ComputerPlayer.RoundPoints = 0;
                 ComputerPlayer.DiscardPile.Clear();
                 ComputerPlayer.CurrentHand.Clear();
+                UserPlayer.GameInfo = new GameInfo();
             }
         }
 

@@ -60,10 +60,11 @@ namespace SixtySix.UI.Views
         {
             var game = ServiceLocator.Resolve<IGame>();
             var player = game.UserPlayer;
-            if (player.IsFirst && player.DiscardPile.Count > 0)
+
+            if (player.IsFirst && 
+                player.DiscardPile.Count > 0)
             {
-                game.Closed.First = player;
-                game.Closed.Second = true;
+                game.Close(player);
                 UpdateUI();
             }
         }
@@ -90,14 +91,21 @@ namespace SixtySix.UI.Views
         {
             var game = ServiceLocator.Resolve<IGame>();
 
-            if (index < game.UserPlayer.CurrentHand.Count)
+            if (index < game.UserPlayer.CurrentHand.Count &&
+                game.CurrentTrick.Count < 2)
             {
                 var card = game.UserPlayer.PlayCard(index);
+
+                if (card == null)
+                {
+                    return;
+                }
+
                 game.CurrentTrick[game.UserPlayer] = card;
                 game.UserPlayer.GameInfo.cardPlayed = card;
                 game.ComputerPlayer.GameInfo.cardPlayed = card;
 
-                game.computerPlaysIf(!game.CurrentTrick.ContainsKey(game.ComputerPlayer));
+                game.ComputerPlaysIf(!game.CurrentTrick.ContainsKey(game.ComputerPlayer));
                 UpdateUI();
             }
         }
