@@ -67,6 +67,7 @@
     <Compile Include="ModelsTests\CardTests\CompareToShould.cs" />
     <Compile Include="ModelsTests\ProvidersTests\DeckProvider66Tests\ConstructorShould.cs" />
     <Compile Include="ModelsTests\ProvidersTests\DeckProvider66Tests\GenerateDeckShould.cs" />
+    <Compile Include="ModelsTests\ProvidersTests\DeckProvider66Tests\ReshuffleDeckShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -53,7 +53,7 @@
         <!-- RoW 2 -->
         <Button x:Name="discardPile1" Grid.Row="2" Grid.Column="6" Width="80" Height="60"
                 Grid.ColumnSpan="3"  Click="openTrump_Click">
-            <TextBlock x:Name="discardPile1Text" TextAlignment="Center"/>
+            <TextBlock x:Name="discardPile1Label" TextAlignment="Center"/>
         </Button>
 
         <!-- Row 3 -->
@@ -66,7 +66,7 @@
         </Button>
         <Button x:Name="talon" Grid.Row="3" Grid.Column="0" Style="{StaticResource CardBtn}"
                 Click="talon_Click">
-                <TextBlock x:Name="talonText"/>
+                <TextBlock x:Name="talonLabel"/>
         </Button>
         <Button x:Name="trickCard1" Grid.Row="3" Grid.Column="3" Style="{StaticResource CardBtn}"
                 Click="trickCard1_Click">
@@ -86,7 +86,7 @@
         <!-- RoW 4 -->
         <Button x:Name="discardPile2" Grid.Row="4" Grid.Column="6" Width="80" Height="60"
                 Grid.ColumnSpan="3"  Click="openTrump_Click">
-            <TextBlock x:Name="discardPile2Text" TextAlignment="Center"/>
+            <TextBlock x:Name="discardPile2Label" TextAlignment="Center"/>
         </Button>
         
         <!-- Row 5 -->

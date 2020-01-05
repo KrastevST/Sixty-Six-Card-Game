@@ -48,34 +48,24 @@ namespace SixtySix.Framework.Providers
             return deck;
         }
 
-        public Queue<ICard> ReshuffleDeck(ICollection<ICard> discardPile1, ICollection<ICard> discardPile2)
+        public Queue<ICard> ReshuffleDeck(IList<ICard> cards)
         {
-            var deck = new Queue<ICard>();
-            var tempDeck = new List<ICard>();
-
-            foreach (var card in discardPile1)
-            {
-                tempDeck.Add(card);
-            }
-
-            foreach (var card in discardPile2)
-            {
-                tempDeck.Add(card);
-            }
+            var newDeck = new Queue<ICard>();
 
             var rand = new Random();
-            int splitAt = rand.Next() % tempDeck.Count;
+            int splitAt = rand.Next() % cards.Count;
+
             for (int i = splitAt; i >= 0; i--)
             {
-                deck.Enqueue(tempDeck[i]);
+                newDeck.Enqueue(cards[i]);
             }
 
-            for (int i = tempDeck.Count - 1; i > splitAt; i--)
+            for (int i = cards.Count - 1; i > splitAt; i--)
             {
-                deck.Enqueue(tempDeck[i]);
+                newDeck.Enqueue(cards[i]);
             }
 
-            return deck;
+            return newDeck;
         }
     }
 }

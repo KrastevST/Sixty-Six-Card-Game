@@ -9,15 +9,25 @@ namespace SixtySix.Framework.UnitTests.ModelsTests.ProvidersTests.DeckProvider66
     public class GenerateDeckShould
     {
         [Test]
-        public void GenerateADeckof24UniqueCards_WhenCalled()
+        public void GenerateADeckofUniqueCards_WhenCalled()
         {
             var factory = new CardFactory();
             var provider = new DeckProvider66(factory);
 
             var deck = provider.GenerateDeck();
-            var uniqueCardsCount = deck.ToList().Distinct().Count();
+            var uniqueCardsCount = deck.Distinct().Count();
 
             Assert.AreEqual(deck.Count, uniqueCardsCount);
+        }
+
+        [Test]
+        public void GenerateADeckOf24Cards_WhenCalled()
+        {
+            var factory = new CardFactory();
+            var provider = new DeckProvider66(factory);
+
+            var deck = provider.GenerateDeck();
+
             Assert.AreEqual(deck.Count, 24);
         }
     }

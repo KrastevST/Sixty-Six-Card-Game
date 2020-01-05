@@ -240,10 +240,39 @@ namespace SixtySix.Framework
 
             if (UserPlayer.DiscardPile.Count > 0 || ComputerPlayer.DiscardPile.Count > 0)
             {
-                Deck = deckProvider.ReshuffleDeck(UserPlayer.DiscardPile, ComputerPlayer.DiscardPile);
+                var cards = CollectAllCards();
+                Deck = deckProvider.ReshuffleDeck(cards);
             }
+
             UserPlayer.DiscardPile.Clear();
             ComputerPlayer.DiscardPile.Clear();
+        }
+
+        private IList<ICard> CollectAllCards()
+        {
+            var cards = new List<ICard>();
+
+            foreach (var card in UserPlayer.DiscardPile)
+            {
+                cards.Add(card);
+            }
+
+            foreach (var card in ComputerPlayer.DiscardPile)
+            {
+                cards.Add(card);
+            }
+
+            if (OpenedTrump != null)
+            {
+                cards.Add(OpenedTrump);
+
+                foreach (var card in Deck)
+                {
+                    cards.Add(card);
+                }
+            }
+
+            return cards;
         }
     }
 }

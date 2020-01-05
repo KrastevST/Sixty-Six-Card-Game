@@ -164,12 +164,12 @@ namespace SixtySix.UI.Views
                 openedTrumpSuit.Text = game.OpenedTrump.Suit.ToLower();
             }
 
-            talonText.Text = game.Deck.Count.ToString();
+            talonLabel.Text = game.Deck.Count.ToString();
 
             if (game.CurrentTrick.ContainsKey(game.ComputerPlayer))
             {
                 trickCard1Rank.Text = game.CurrentTrick[game.ComputerPlayer].Rank.ToUpper();
-                trickCard1Suit.Text = game.CurrentTrick[game.ComputerPlayer].Suit.ToUpper();
+                trickCard1Suit.Text = game.CurrentTrick[game.ComputerPlayer].Suit.ToLower();
             }
             else
             {
@@ -180,7 +180,7 @@ namespace SixtySix.UI.Views
             if (game.CurrentTrick.ContainsKey(game.UserPlayer))
             {
                 trickCard2Rank.Text = game.CurrentTrick[game.UserPlayer].Rank.ToUpper();
-                trickCard2Suit.Text = game.CurrentTrick[game.UserPlayer].Suit.ToUpper();
+                trickCard2Suit.Text = game.CurrentTrick[game.UserPlayer].Suit.ToLower();
             }
             else
             {
@@ -188,8 +188,8 @@ namespace SixtySix.UI.Views
                 trickCard2Suit.Text = null;
             }
 
-            discardPile1Text.Text = game.ComputerPlayer.RoundPoints.ToString();
-            discardPile2Text.Text = game.UserPlayer.RoundPoints.ToString();
+            discardPile1Label.Text = game.ComputerPlayer.RoundPoints.ToString();
+            discardPile2Label.Text = game.UserPlayer.RoundPoints.ToString();
         }
 
         private void TakeTrick()
@@ -200,14 +200,11 @@ namespace SixtySix.UI.Views
             {
                 game.ResolveCurrentTrick();
 
-                if (game.CheckForGameWinner() != null)
-                {
-                    //TODO end of game
-                }
-
                 if (game.RoundOver)
                 {
-                    //TODO end of round
+                    var resultsWindow = new ResultsWindow();
+                    resultsWindow.Show();
+                    this.Close();
                 }
 
                 UpdateUI();
