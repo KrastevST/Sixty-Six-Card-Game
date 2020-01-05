@@ -32,7 +32,6 @@ namespace SixtySix.Framework.Models
 
             return this.Value - otherCard.Value;
         }
-
         public bool Equals(ICard other)
         {
             return Rank.ToLower().Equals(other.Rank.ToLower()) && 

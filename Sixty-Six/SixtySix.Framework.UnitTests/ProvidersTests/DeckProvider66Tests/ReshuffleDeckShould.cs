@@ -6,7 +6,7 @@ using SixtySix.Framework.Providers;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SixtySix.Framework.UnitTests.ModelsTests.ProvidersTests.DeckProvider66Tests
+namespace SixtySix.Framework.UnitTests.ProvidersTests.DeckProvider66Tests
 {
     [TestFixture]
     public class ReshuffleDeckShould

@@ -65,9 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelsTests\CardTests\CompareToShould.cs" />
-    <Compile Include="ModelsTests\ProvidersTests\DeckProvider66Tests\ConstructorShould.cs" />
-    <Compile Include="ModelsTests\ProvidersTests\DeckProvider66Tests\GenerateDeckShould.cs" />
-    <Compile Include="ModelsTests\ProvidersTests\DeckProvider66Tests\ReshuffleDeckShould.cs" />
+    <Compile Include="ProvidersTests\DeckProvider66Tests\ConstructorShould.cs" />
+    <Compile Include="ProvidersTests\DeckProvider66Tests\GenerateDeckShould.cs" />
+    <Compile Include="ProvidersTests\DeckProvider66Tests\ReshuffleDeckShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +84,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ModelsTests\Game66Tests\" />
     <Folder Include="ModelsTests\PlayersTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

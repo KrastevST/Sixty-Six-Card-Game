@@ -191,8 +191,6 @@ namespace SixtySix.Framework
                 roundWinner = Not(Closed.First);
             }
 
-            firstPlayer.RoundPoints -= 10;
-
             return roundWinner;
         }
         private bool IsRoundOver()

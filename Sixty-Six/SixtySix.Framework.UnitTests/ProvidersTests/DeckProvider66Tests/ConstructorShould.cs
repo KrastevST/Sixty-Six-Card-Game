@@ -4,7 +4,7 @@ using SixtySix.Crontracts;
 using SixtySix.Framework.Providers;
 using System;
 
-namespace SixtySix.Framework.UnitTests.ModelsTests.ProvidersTests.DeckProvider66Tests
+namespace SixtySix.Framework.UnitTests.ProvidersTests.DeckProvider66Tests
 {
     [TestFixture]
     public class ConstructorShould
