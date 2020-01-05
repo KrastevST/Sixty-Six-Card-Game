@@ -184,6 +184,8 @@ namespace SixtySix.Framework
                 roundWinner = Not(Closed.First);
             }
 
+            firstPlayer.RoundPoints -= 10;
+
             return roundWinner;
         }
         private bool IsRoundOver()
@@ -232,20 +234,23 @@ namespace SixtySix.Framework
         }
         private void ResetRound()
         {
-            UserPlayer.RoundPoints = 0;
-            ComputerPlayer.RoundPoints = 0;
-            Closed.First = null;
-            Closed.Second = false;
-            trumpSuit = null;
-
             if (UserPlayer.DiscardPile.Count > 0 || ComputerPlayer.DiscardPile.Count > 0)
             {
                 var cards = CollectAllCards();
                 Deck = deckProvider.ReshuffleDeck(cards);
-            }
 
-            UserPlayer.DiscardPile.Clear();
-            ComputerPlayer.DiscardPile.Clear();
+                Closed.First = null;
+                Closed.Second = false;
+                trumpSuit = null;
+                OpenedTrump = null;
+
+                UserPlayer.RoundPoints = 0;
+                UserPlayer.DiscardPile.Clear();
+                UserPlayer.CurrentHand.Clear();
+                ComputerPlayer.RoundPoints = 0;
+                ComputerPlayer.DiscardPile.Clear();
+                ComputerPlayer.CurrentHand.Clear();
+            }
         }
 
         private IList<ICard> CollectAllCards()
@@ -262,13 +267,23 @@ namespace SixtySix.Framework
                 cards.Add(card);
             }
 
+            foreach (var card in UserPlayer.CurrentHand)
+            {
+                cards.Add(card);
+            }
+
+            foreach (var card in ComputerPlayer.CurrentHand)
+            {
+                cards.Add(card);
+            }
+
             if (OpenedTrump != null)
             {
                 cards.Add(OpenedTrump);
 
-                foreach (var card in Deck)
+                while (Deck.Count > 0)
                 {
-                    cards.Add(card);
+                    cards.Add(Deck.Dequeue());
                 }
             }
 
