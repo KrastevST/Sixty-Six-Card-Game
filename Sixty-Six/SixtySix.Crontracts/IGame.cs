@@ -4,6 +4,7 @@ namespace SixtySix.Crontracts
 {
     public interface IGame
     {
+        IPair<IPlayer, bool> Closed { get; set; }
         IDictionary<IPlayer, ICard> CurrentTrick { get; set; }
         IUserPlayer UserPlayer { get; }
         IComputerPlayer ComputerPlayer { get; }

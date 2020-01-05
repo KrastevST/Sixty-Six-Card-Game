@@ -46,11 +46,6 @@ namespace SixtySix.UI.Views
             PlayCard(5);
         }
 
-        private void openTrump_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void trickCard1_Click(object sender, RoutedEventArgs e)
         {
             TakeTrick();
@@ -63,7 +58,32 @@ namespace SixtySix.UI.Views
 
         private void talon_Click(object sender, RoutedEventArgs e)
         {
+            var game = ServiceLocator.Resolve<IGame>();
+            var player = game.UserPlayer;
+            if (player.IsFirst && player.DiscardPile.Count > 0)
+            {
+                game.Closed.First = player;
+                game.Closed.Second = true;
+                UpdateUI();
+            }
+        }
 
+        private void openTrump_Click(object sender, RoutedEventArgs e)
+        {
+            var game = ServiceLocator.Resolve<IGame>();
+            var player = game.UserPlayer;
+            var trump9 = ServiceLocator.Resolve<ICardFactory>().GenerateCard("9", openedTrumpSuit.Text.ToLower(), 0);
+
+            if (player.IsFirst &&
+                player.DiscardPile.Count > 0 &&
+                player.CurrentHand.Contains(trump9) &&
+                game.OpenedTrump != null)
+            {
+                player.CurrentHand.Remove(trump9);
+                player.CurrentHand.Add(game.OpenedTrump);
+                game.OpenedTrump = trump9;
+                UpdateUI();
+            }
         }
 
         private void PlayCard(int index)
@@ -87,6 +107,7 @@ namespace SixtySix.UI.Views
             var game = ServiceLocator.Resolve<IGame>();
             var playerHand = game.UserPlayer.CurrentHand;
 
+            // Cards in hand
             if (playerHand.Count >= 1)
             {
                 card1Rank.Text = playerHand[0].Rank.ToUpper();
@@ -153,7 +174,13 @@ namespace SixtySix.UI.Views
                 card6Suit.Text = null;
             }
 
-            if (game.OpenedTrump == null)
+            // Opened trump & talon
+            if (game.Closed.First != null)
+            {
+                openedTrumpRank.Text = null;
+                openedTrumpSuit.Text = "Closed";
+            }
+            else if (game.OpenedTrump == null)
             {
                 openedTrumpRank.Text = null;
                 openedTrumpSuit.Text = null;
@@ -166,6 +193,8 @@ namespace SixtySix.UI.Views
 
             talonLabel.Text = game.Deck.Count.ToString();
 
+
+            // Trick
             if (game.CurrentTrick.ContainsKey(game.ComputerPlayer))
             {
                 trickCard1Rank.Text = game.CurrentTrick[game.ComputerPlayer].Rank.ToUpper();
@@ -188,6 +217,7 @@ namespace SixtySix.UI.Views
                 trickCard2Suit.Text = null;
             }
 
+            // Discard piles
             discardPile1Label.Text = game.ComputerPlayer.RoundPoints.ToString();
             discardPile2Label.Text = game.UserPlayer.RoundPoints.ToString();
         }

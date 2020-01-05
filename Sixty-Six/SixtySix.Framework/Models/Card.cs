@@ -35,7 +35,8 @@ namespace SixtySix.Framework.Models
 
         public bool Equals(ICard other)
         {
-            return Rank.Equals(other.Rank) && Suit.Equals(other.Suit);
+            return Rank.ToLower().Equals(other.Rank.ToLower()) && 
+                   Suit.ToLower().Equals(other.Suit.ToLower());
         }
     }
 }

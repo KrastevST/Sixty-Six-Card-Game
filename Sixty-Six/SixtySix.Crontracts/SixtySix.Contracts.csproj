@@ -50,6 +50,7 @@
     <Compile Include="IDeckProvider.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="IGameInfo.cs" />
+    <Compile Include="IPair.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IUserPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

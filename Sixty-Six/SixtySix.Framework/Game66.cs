@@ -28,7 +28,7 @@ namespace SixtySix.Framework
             ChangeFirstPlayer(RandomPlayer());
         }
 
-        public Pair<IPlayer, bool> Closed { get; set; }
+        public IPair<IPlayer, bool> Closed { get; set; }
         public IDictionary<IPlayer, ICard> CurrentTrick { get; set; }
         public IUserPlayer UserPlayer { get; }
         public IComputerPlayer ComputerPlayer { get; }
@@ -89,7 +89,7 @@ namespace SixtySix.Framework
 
         private void DealCards(int number)
         {
-            if (Deck.Count == 0)
+            if (Closed.Second)
             {
                 return;
             }
